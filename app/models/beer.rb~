@@ -3,6 +3,10 @@ class Beer < ActiveRecord::Base
   has_many :ratings
 
   def average_rating
-    sum(ratings:score)
+    ratings.average(:score)
+  end
+
+  def to_s
+    "#{name} #{brewery.name}"
   end
 end
