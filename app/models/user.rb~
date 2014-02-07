@@ -3,5 +3,9 @@ class User < ActiveRecord::Base
   
   validates :username, uniqueness: true,
                        length: { in: 3..15}
+  validate :password, length: {minimum: 3},
+                      format: {with: /.*(\d.*[A-Z]|[A-Z].*\d).*/,
+                                 message: "should contain a uppercase letter and a number" } 
   has_many :ratings
+  has_many :beers, through: :ratings
 end
