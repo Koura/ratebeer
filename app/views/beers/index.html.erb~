@@ -17,7 +17,7 @@
       <tr>
         <td><%= link_to beer.name, beer %></td>
         <td><%= beer.style %></td>
-        <td><%= brewery.find_by id:brewery.id %></td>
+        <td><%= link_to beer.brewery.name, beer.brewery %></td>
         <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
         <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -26,6 +26,5 @@
 </table>
 
 <br>
-
-<%= link_to 'New Beer', new_beer_path %>
+<%= link_to('New Beer', new_beer_path) unless current_user.nil? %>
 <p><%= link_to 'List of breweries', breweries_path%></p>

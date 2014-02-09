@@ -1,6 +1,8 @@
 require 'spec_helper'
+include OwnTestHelper
 
 describe "Beer" do
+  let!(:user) {FactoryGirl.create :user}
 
   before :each do
     FactoryGirl.create :brewery
@@ -14,10 +16,9 @@ describe "Beer" do
   end
 
   it "when given invalid name, user is redirected and error message is shown" do
-    fill_in('beer[name]', with:'')
     click_button("Create Beer")
     expect(current_path).to eq(beers_path)
+    expect(page).to have_content "Name can't be blank"
     expect(Beer.count).to eq(0)
-    save_and_open_page
   end
 end

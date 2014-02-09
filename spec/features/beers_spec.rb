@@ -1,9 +1,12 @@
 require 'spec_helper'
+include OwnTestHelper
 
 describe "Beer" do
+  let!(:user) {FactoryGirl.create :user}
 
   before :each do
     FactoryGirl.create :brewery
+    sign_in(username:"Pekka", password:"Foobar1")
     visit new_beer_path
   end
   it "when given valid name, is added to the database" do
