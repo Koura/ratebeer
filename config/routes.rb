@@ -6,6 +6,8 @@ Ratebeer::Application.routes.draw do
   resources :users
 
   root 'breweries#index'
+  get 'places', to: 'places#index'
+  post 'places', to:'places#search'
   get 'signup', to: 'users#new'
   get 'kaikki_bisset', to: 'beers#index'
   get 'signin', to: 'sessions#new'
