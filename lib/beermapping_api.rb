@@ -4,6 +4,9 @@ class BeermappingApi
     Rails.cache.fetch(city, :expires_in => 1.week, :race_condition_ttl => 10.minutes) { fetch_places_in(city)}
   end
 
+  def self.find(id, city)
+    places_in(city).select{ |p| p.id == id.to_s }.first
+  end
   private
 
   def self.fetch_places_in(city)

@@ -8,9 +8,22 @@
 <% end %>
 
 <% if @places %>
-  <ul>
+  <table>
+    <thead>
+      <% Place.rendered_fields.each do |f| %>
+        <td><%= f %></td>
+      <% end %>
+    </thead>
     <% @places.each do |place| %>
-      <li><%=place.name %></li>
+      <tr>
+        <% Place.rendered_fields.each do |f| %>
+          <% if f==:name %>
+            <td> <%= link_to place.name, place_path(place.id) %></td>
+          <% else %>
+            <td><%= place.send(f) %></td>
+          <%end %>
+        <% end %>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 <% end %>
