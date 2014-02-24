@@ -17,6 +17,12 @@
   </p>
 <% end %>
 
+<% if @user.ratings.any? %>
+    <p>Favorite beer: <%= @user.favorite_beer %> </p>
+    <p>Favorite brewery: <%= @user.favorite_brewery.name %> </p>
+    <p>Preferred style: <%= @user.favorite_style %> </p>
+<% end %>
+
 <h3>ratings</h3>
 
 <% if @user.ratings.empty? %>
@@ -27,7 +33,7 @@
   <% @user.ratings.each do |rating| %>
       <li> <%= rating %>
         <% if @user == current_user %>
-            <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' %>
         <% end %>
       </li>
   <% end %>

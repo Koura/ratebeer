@@ -8,6 +8,9 @@ Ratebeer::Application.routes.draw do
   resources :users
 
   root 'breweries#index'
+  get 'beerlist', to:'beers#list'
+  get 'ngbeerlist', to:'beers#nglist'
+  get 'brewerylist', to:'breweries#list'
   get 'signup', to: 'users#new'
   get 'kaikki_bisset', to: 'beers#index'
   get 'signin', to: 'sessions#new'

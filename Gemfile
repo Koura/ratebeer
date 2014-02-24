@@ -7,7 +7,11 @@ gem 'rails', '4.0.2'
 #gem 'sqlite3'
 
 gem 'byebug', group: [:development, :test]
-
+gem 'jquery-turbolinks'
+gem 'bootstrap-sass'
+group :development do
+  gem 'rails_layout'
+end
 group :development, :test do
   gem 'sqlite3'
 end
@@ -26,6 +30,8 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner', '< 1.1.0'
 end
 
 gem 'httparty'

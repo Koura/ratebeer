@@ -7,7 +7,7 @@ gem 'rails', '4.0.2'
 #gem 'sqlite3'
 
 gem 'byebug', group: [:development, :test]
-
+gem 'jquery-turbolinks'
 group :development, :test do
   gem 'sqlite3'
 end
@@ -25,10 +25,12 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
+  gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner', '< 1.1.0'
 end
 
 gem 'httparty'
-gem 'webmock'
 gem 'simplecov', require: false
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
