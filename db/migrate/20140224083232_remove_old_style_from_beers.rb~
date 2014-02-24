@@ -1,0 +1,4 @@
+class RemoveOldStyleFromBeers < ActiveRecord::Migration
+  def change
+  end
+end
