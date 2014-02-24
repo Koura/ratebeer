@@ -2,9 +2,7 @@ require 'spec_helper'
 include OwnTestHelper
 
 describe "User" do
-  before :each do
-    FactoryGirl.create :user
-  end
+  let!(:user){FactoryGirl.create :user}
 
   describe "who has signed up" do
     it "can signin with right credentials" do

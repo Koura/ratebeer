@@ -26,33 +26,35 @@ describe "Rating" do
     expect(beer1.average_rating).to eq(15.0)
   end
 
-  it "ratings are shown in the site" do
-    ratings = create_beers_with_ratings(10, 20,15,7,9,user)
-    visit ratings_path
-    expect(page).to have_content "Number of ratings: #{ratings.count}"
-    ratings.each do |rating|
-      expect(page).to have_content rating
-    end 
-  end
-
-  it "only users own ratings are shown in his profile" do
-    create_beers_with_ratings(10, 20,15,7,9,user)
-    user2 = FactoryGirl.create(:user, username:"Japi")
-    create_beers_with_ratings(2, user2)
-    visit user_path(user)
-    user.ratings.each do |rating|
-      expect(page).to have_content rating
+  describe "when many exists" do
+    before :each do
+      user2 = FactoryGirl.create(:user, username:'Arto')
+      FactoryGirl.create(:rating, score:10, beer:beer1, user:user)
+      FactoryGirl.create(:rating, score:20, beer:beer1, user:user2)
+      FactoryGirl.create(:rating, score:30, beer:beer2, user:user)
     end
-    expect(page).not_to have_content user2.ratings.first.user.username
-  end
 
-  it "deleted rating is removed from the database" do
-    create_beers_with_ratings(10, 20,15,7,9,user)
-    visit user_path(user)
-    rating = user.ratings.first
-    expect{
-    page.find('li', :text => rating).click_link('delete')
-    }.to change{Rating.count}.by(-1)
-    expect(page).not_to have_content rating
+    it "all are listed at the ratings page" do
+      visit ratings_path
+      expect(page).to have_content 'Number of ratings: 3'
+      expect(page).to have_content "#{beer1.name} 10"
+      expect(page).to have_content "#{beer1.name} 20"
+      expect(page).to have_content "#{beer2.name} 30"
+    end
+
+    it "only users own ratings are shown in his profile" do
+      visit user_path(user)
+      expect(page).to have_content 'has made 2 ratings'
+      expect(page).to have_content "#{beer1.name} 10"
+      expect(page).to have_content "#{beer2.name} 30"
+      expect(page).not_to have_content "#{beer1.name} 20"
+    end
+
+    it "user can delete one of his own" do
+      visit user_path(user)
+      expect{
+        page.first('a', text:'delete').click
+      }.to change{Rating.count}.by(-1)
+    end
   end
 end

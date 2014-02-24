@@ -1,19 +1,15 @@
 module RatingCreatorHelper
 
   def create_beer_with_rating(score, user)
-    beer = FactoryGirl.create(:beer)
-    FactoryGirl.create(:rating, score:score, beer:beer, user:user)
-    beer
+    create_beer(score, FactoryGirl.create(:style), Brewery.new, user)
   end
 
   def create_beers_with_ratings(*scores, user)
-    scores.each do |score|
-      create_beer_with_rating(score, user)
-    end
+    create_beers(scores, FactoryGirl.create(:style), Brewery.new, user)
   end
 
   def create_beers_with_ratings_and_brewery(*scores, brewery, user)
-    create_beers(scores, "Pale Ale", brewery, user)
+    create_beers(scores, FactoryGirl.create(:style), brewery, user)
   end
    
   def create_beers_with_ratings_and_style(*scores, style, user)
